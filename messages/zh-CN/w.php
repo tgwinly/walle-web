@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'w' => 'Walle 瓦力平台',
+    'w' => '部署平台',
     'w platform' => '平台',
 
     'bool_0' => 'No',

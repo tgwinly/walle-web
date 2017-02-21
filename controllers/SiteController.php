@@ -86,39 +86,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * User signup
-     */
-    public function actionSignup() {
-        $userDriver = isset(\Yii::$app->params['user_driver']) == true && empty(\Yii::$app->params['user_driver']) == false ? \Yii::$app->params['user_driver'] : 'local';
-        if ($userDriver != 'local') {
-            throw new BadRequestHttpException(Yii::t('walle', 'the login type does not provide registration', array(
-                    'loginType'=>$userDriver
-                )));
-        }
-
-        $user = new User(['scenario' => 'signup']);
-        if ($user->load(Yii::$app->request->post())) {
-            $user->status = User::STATUS_ACTIVE;
-            if ($user->save()) {
-                Yii::$app->mail->compose('confirmEmail', ['user' => $user])
-                    ->setFrom(Yii::$app->mail->messageConfig['from'])
-                    ->setTo($user->email)
-                    ->setSubject('瓦力平台 - ' . $user->realname)
-                    ->send();
-                Yii::$app->session->setFlash('user-signed-up');
-                return $this->refresh();
-            }
-        }
-
-        if (Yii::$app->session->hasFlash('user-signed-up')) {
-            return $this->render('signedUp');
-        }
-
-        return $this->render('signup', [
-            'model' => $user,
-        ]);
-    }
 
     /**
      * Confirm email

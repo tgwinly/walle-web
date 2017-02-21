@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="center">
                         <h1>
                             <i class="icon-leaf green"></i>
-                            <span class="red">Walle</span>
+                            <span class="red">部署</span>
                             <span class="white"><?= yii::t("w","w platform") ?></span>
                         </h1>
                     </div>

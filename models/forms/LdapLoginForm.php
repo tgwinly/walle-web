@@ -175,7 +175,7 @@ class LdapLoginForm extends LoginForm
 			Yii::$app->mail->compose('confirmEmail', ['user' => $user])
 		        ->setFrom(Yii::$app->mail->messageConfig['from'])
 		        ->setTo($user->email)
-		        ->setSubject('瓦力平台 - ' . $user->realname)
+		        ->setSubject('部署平台 - ' . $user->realname)
 		        ->send();
 
 		    unset($user);
