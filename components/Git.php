@@ -144,7 +144,7 @@ class Git extends Command {
         $this->updateRepo();
         $destination = Project::getDeployFromDir();
         $cmd[] = sprintf('cd %s ', $destination);
-        $cmd[] = '/usr/bin/env git tag -l ';
+        $cmd[] = '/usr/bin/env git tag -ln1 ';
         $command = join(' && ', $cmd);
         $result = $this->runLocalCommand($command);
         if (!$result) {
@@ -153,9 +153,11 @@ class Git extends Command {
 
         $history = [];
         $list = explode(PHP_EOL, $this->getExeLog());
+        $list = array_reverse($list);
         foreach ($list as $item) {
+            $tagName = substr($item, 0, strpos($item, ' '));
             $history[] = [
-                'id'      => $item,
+                'id'      => $tagName,
                 'message' => $item,
             ];
         }
